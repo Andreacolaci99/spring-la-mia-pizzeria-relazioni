@@ -6,6 +6,9 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
+import jakarta.validation.constraints.Min;
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
 
 @Entity
 @Table(name = "Pizze")
@@ -15,14 +18,28 @@ public class Pizza {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
 
+    @NotBlank(message = "Il nome della pizza è obbligatorio")
     @Column(nullable = false, unique = true)
     private String nome;
 
+    @NotBlank(message = "La descrizione della pizza è obbligatoria")
     @Column(nullable = false)
     private String descrizione;
 
+    @NotNull(message="Inserire una cifra valida")
+    @Min(value = 0)
     @Column(nullable = false)
-    private float prezzo;
+    private Integer prezzo;
+
+    private String urlFoto;
+
+    public String getUrlFoto() {
+        return urlFoto;
+    }
+
+    public void setUrlFoto(String urlFoto) {
+        this.urlFoto = urlFoto;
+    }
 
     public Integer getId() {
         return id;
@@ -48,11 +65,11 @@ public class Pizza {
         this.descrizione = descrizione;
     }
 
-    public float getPrezzo() {
+    public Integer getPrezzo() {
         return prezzo;
     }
 
-    public void setPrezzo(float prezzo) {
+    public void setPrezzo(Integer prezzo) {
         this.prezzo = prezzo;
     }
 
