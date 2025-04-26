@@ -11,11 +11,11 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import it.lessons.pizzeria.model.Pizza;
 import it.lessons.pizzeria.repository.PizzaRepository;
 import jakarta.validation.Valid;
-
 
 @Controller
 @RequestMapping("/")
@@ -30,8 +30,13 @@ public class PizzeriaController {
     }
 
     @GetMapping("/pizzeria/pizze")
-    public String listaPizze(Model model) {
-        List<Pizza> listaPizze = pizzaRepository.findAll();
+    public String listaPizze(Model model, @RequestParam(name = "keyword", required = false) String name) {
+        List<Pizza> listaPizze;
+        if (name != null && !name.isBlank()) {
+            listaPizze = pizzaRepository.findByNameContainingIgnoreCase(name);
+        } else {
+            listaPizze = pizzaRepository.findAll();
+        }
         model.addAttribute("pizze", listaPizze);
         return "/pizzeria/pizze";
     }
@@ -51,9 +56,10 @@ public class PizzeriaController {
     }
 
     @PostMapping("pizzeria/pizze/create")
-    public String postCreate(@Valid @ModelAttribute("pizza") Pizza formPizza,BindingResult bindingResult ,Model model) {
+    public String postCreate(@Valid @ModelAttribute("pizza") Pizza formPizza, BindingResult bindingResult,
+            Model model) {
 
-        if(bindingResult.hasFieldErrors()){
+        if (bindingResult.hasFieldErrors()) {
             return "/pizzeria/create";
         }
 

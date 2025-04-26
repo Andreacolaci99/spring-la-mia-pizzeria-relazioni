@@ -19,8 +19,8 @@ public class Pizza {
     private Integer id;
 
     @NotBlank(message = "Il nome della pizza è obbligatorio")
-    @Column(nullable = false, unique = true)
-    private String nome;
+    @Column(nullable = false, unique = true, name="nome")
+    private String name;
 
     @NotBlank(message = "La descrizione della pizza è obbligatoria")
     @Column(nullable = false)
@@ -49,12 +49,12 @@ public class Pizza {
         this.id = id;
     }
 
-    public String getNome() {
-        return nome;
+    public String getName() {
+        return name;
     }
 
-    public void setNome(String nome) {
-        this.nome = nome;
+    public void setName(String name) {
+        this.name = name;
     }
 
     public String getDescrizione() {

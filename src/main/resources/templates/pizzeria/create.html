@@ -23,9 +23,9 @@
                     <div class="row">
                         <div class="col-12">
                             <label for="form-label">Nome Pizza</label>
-                            <input type="text" class="form-control" id="nome" th:field="*{nome}" th:errorClass="is-invalid">
-                            <ul th:if="${#fields.hasErrors('nome')}">
-                                <li th:each="err : ${#fields.errors('nome')}" class="text-danger" th:text="${err}">Input is incorrect</li>
+                            <input type="text" class="form-control" id="name" th:field="*{name}" th:errorClass="is-invalid">
+                            <ul th:if="${#fields.hasErrors('name')}">
+                                <li th:each="err : ${#fields.errors('name')}" class="text-danger" th:text="${err}">Input is incorrect</li>
                               </ul>
                         </div>
                         <div class="col-12">
