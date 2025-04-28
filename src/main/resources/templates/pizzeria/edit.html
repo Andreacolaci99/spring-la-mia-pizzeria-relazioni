@@ -17,7 +17,7 @@
         <h1>Crea una nuova pizza</h1>
         <hr />
 
-        <form id="pizza-form" th:object="${pizza}" th:action="@{/pizzeria/pizze/create}" method="post">
+        <form id="pizza-form" th:object="${pizza}" th:action="@{|/pizze/edit/${pizza.id}|}" method="post">
             <div class="row">
                 <div class="col-8">
                     <div class="row">

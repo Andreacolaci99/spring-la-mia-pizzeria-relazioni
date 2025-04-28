@@ -17,6 +17,8 @@ import it.lessons.pizzeria.model.Pizza;
 import it.lessons.pizzeria.repository.PizzaRepository;
 import jakarta.validation.Valid;
 
+
+
 @Controller
 @RequestMapping("/")
 public class PizzeriaController {
@@ -67,4 +69,30 @@ public class PizzeriaController {
         return "redirect:/pizzeria/pizze";
     }
 
+    @GetMapping("/pizze/edit/{id}")
+    public String editPizza(@PathVariable("id") Integer id, Model model) {
+        model.addAttribute("pizza", pizzaRepository.findById(id).get());
+
+        return "/pizzeria/edit";
+    }
+
+    @PostMapping("/pizze/edit/{id}")
+    public String updatePizza(@Valid @ModelAttribute("pizza") Pizza formPizza, BindingResult bindingResult, Model model) {
+        
+        if(bindingResult.hasErrors()){
+            return "/pizzeria/edit";
+        }
+        pizzaRepository.save(formPizza);
+
+        return "redirect:/pizzeria/pizze";
+    }
+
+    @PostMapping("/delete/{id}")
+    public String deletePizza(@PathVariable("id") Integer id) {
+        
+        pizzaRepository.deleteById(id);
+        return "redirect:/pizzeria/pizze";
+    }
+    
+    
 }
