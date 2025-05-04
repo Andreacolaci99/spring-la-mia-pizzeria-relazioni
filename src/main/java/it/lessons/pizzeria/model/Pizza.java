@@ -1,10 +1,13 @@
 package it.lessons.pizzeria.model;
 
+import java.util.List;
+
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 import jakarta.validation.constraints.Min;
 import jakarta.validation.constraints.NotBlank;
@@ -32,6 +35,17 @@ public class Pizza {
     private Integer prezzo;
 
     private String urlFoto;
+
+    @OneToMany(mappedBy="pizza")
+    private List<Offerte> offerte;
+
+    public List<Offerte> getOfferte() {
+        return offerte;
+    }
+
+    public void setOfferte(List<Offerte> offerte) {
+        this.offerte = offerte;
+    }
 
     public String getUrlFoto() {
         return urlFoto;

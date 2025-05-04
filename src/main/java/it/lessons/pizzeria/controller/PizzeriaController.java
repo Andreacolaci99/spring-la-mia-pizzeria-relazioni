@@ -13,11 +13,10 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import it.lessons.pizzeria.model.Offerte;
 import it.lessons.pizzeria.model.Pizza;
 import it.lessons.pizzeria.repository.PizzaRepository;
 import jakarta.validation.Valid;
-
-
 
 @Controller
 @RequestMapping("/")
@@ -77,9 +76,10 @@ public class PizzeriaController {
     }
 
     @PostMapping("/pizze/edit/{id}")
-    public String updatePizza(@Valid @ModelAttribute("pizza") Pizza formPizza, BindingResult bindingResult, Model model) {
-        
-        if(bindingResult.hasErrors()){
+    public String updatePizza(@Valid @ModelAttribute("pizza") Pizza formPizza, BindingResult bindingResult,
+            Model model) {
+
+        if (bindingResult.hasErrors()) {
             return "/pizzeria/edit";
         }
         pizzaRepository.save(formPizza);
@@ -89,10 +89,19 @@ public class PizzeriaController {
 
     @PostMapping("/delete/{id}")
     public String deletePizza(@PathVariable("id") Integer id) {
-        
+
         pizzaRepository.deleteById(id);
         return "redirect:/pizzeria/pizze";
     }
-    
-    
+
+    @GetMapping("/pizzeria/pizze/{id}/offerte")
+    public String offerte(@PathVariable Integer id, Model model) {
+        Offerte offerte = new Offerte();
+        offerte.setPizza(pizzaRepository.findById(id).get());
+
+        model.addAttribute("offerte", offerte);
+        model.addAttribute("editMode", false);
+        return "/pizzeria/offerte/edit";
+    }
+
 }

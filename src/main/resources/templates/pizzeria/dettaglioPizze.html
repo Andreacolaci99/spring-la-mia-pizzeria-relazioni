@@ -16,6 +16,62 @@
     <h1 th:text="${pizza.name}"></h1>
     <h2 th:text="${pizza.descrizione}"></h2>
     <img th:src="${pizza.urlFoto}" alt="600px" width="900px">
+    <div class="d-flex align-items-center justify-content-between mt-4 mb-3">
+      <h2 class="mb-0"><strong>Le Nostre Offerte</strong></h2>
+      <a class="btn btn-success"
+         th:href="@{|/pizzeria/pizze/${pizza.id}/offerte|}">
+         <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-plus-square" viewBox="0 0 16 16">
+          <path d="M14 1a1 1 0 0 1 1 1v12a1 1 0 0 1-1 1H2a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1zM2 0a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2z"/>
+          <path d="M8 4a.5.5 0 0 1 .5.5v3h3a.5.5 0 0 1 0 1h-3v3a.5.5 0 0 1-1 0v-3h-3a.5.5 0 0 1 0-1h3v-3A.5.5 0 0 1 8 4"/>
+        </svg> Aggiungi Offerta
+      </a>
+    </div>
+      <table class="table table-hover" th:if="${pizza.offerte.size() > 0}">
+        <thead>
+          <tr>
+            <th>
+              Titolo
+            </th>
+            <th>
+              Data Inizio
+            </th>
+            <th>
+              Data Fine
+            </th>
+            <th>
+              Modifica Offerta
+            </th>
+            <th>
+              Elimina Offerta
+            </th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr th:each="offerte : ${pizza.offerte}">
+            <td th:text="${offerte.titolo}"></td>
+            <td th:text="${offerte.dataInizio}"></td>
+            <td th:text="${offerte.dataFine}"></td>
+            <td>
+              <a class="btn btn-warning" th:href="@{|/offerte/edit/${offerte.id}|}" method="get"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-pen" viewBox="0 0 16 16">
+                <path d="m13.498.795.149-.149a1.207 1.207 0 1 1 1.707 1.708l-.149.148a1.5 1.5 0 0 1-.059 2.059L4.854 14.854a.5.5 0 0 1-.233.131l-4 1a.5.5 0 0 1-.606-.606l1-4a.5.5 0 0 1 .131-.232l9.642-9.642a.5.5 0 0 0-.642.056L6.854 4.854a.5.5 0 1 1-.708-.708L9.44.854A1.5 1.5 0 0 1 11.5.796a1.5 1.5 0 0 1 1.998-.001m-.644.766a.5.5 0 0 0-.707 0L1.95 11.756l-.764 3.057 3.057-.764L14.44 3.854a.5.5 0 0 0 0-.708z"/>
+              </svg></a>
+            </td>
+            <td>
+              <form action="#" th:action ="@{|/offerte/delete/${offerte.id}|}" method="post">
+                <button type="submit" class="btn btn-danger"  onclick="return confirm('Sei sicuro di voler cancellare questa offerta ?')"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-x-diamond-fill" viewBox="0 0 16 16">
+                  <path d="M9.05.435c-.58-.58-1.52-.58-2.1 0L4.047 3.339 8 7.293l3.954-3.954L9.049.435zm3.61 3.611L8.708 8l3.954 3.954 2.904-2.905c.58-.58.58-1.519 0-2.098l-2.904-2.905zm-.706 8.614L8 8.708l-3.954 3.954 2.905 2.904c.58.58 1.519.58 2.098 0l2.905-2.904zm-8.614-.706L7.292 8 3.339 4.046.435 6.951c-.58.58-.58 1.519 0 2.098z"/>
+                </svg></button>
+              </form>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+      <div th:unless="${pizza.offerte.size() > 0}">
+        <div class="alert alert-danger" role="alert">
+          Non ci sono offerte
+        </div>
+      </div>
+    </div>
   </div>
 </body>
 
