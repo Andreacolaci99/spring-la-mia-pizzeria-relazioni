@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 import it.lessons.pizzeria.model.Offerte;
 import it.lessons.pizzeria.model.Pizza;
+import it.lessons.pizzeria.repository.IngredientiRepository;
 import it.lessons.pizzeria.repository.PizzaRepository;
 import jakarta.validation.Valid;
 
@@ -24,6 +25,9 @@ public class PizzeriaController {
 
     @Autowired
     private PizzaRepository pizzaRepository;
+
+    @Autowired
+    private IngredientiRepository ingredientiRepository;
 
     @GetMapping("/pizzeria")
     public String startMenu(Model model) {
@@ -52,6 +56,7 @@ public class PizzeriaController {
     public String createNewPizza(Model model) {
 
         model.addAttribute("pizza", new Pizza());
+        model.addAttribute("listaIngredienti", ingredientiRepository.findAll());
 
         return "pizzeria/create";
     }
@@ -71,6 +76,7 @@ public class PizzeriaController {
     @GetMapping("/pizze/edit/{id}")
     public String editPizza(@PathVariable("id") Integer id, Model model) {
         model.addAttribute("pizza", pizzaRepository.findById(id).get());
+        model.addAttribute("listaIngredienti", ingredientiRepository.findAll());
 
         return "/pizzeria/edit";
     }
