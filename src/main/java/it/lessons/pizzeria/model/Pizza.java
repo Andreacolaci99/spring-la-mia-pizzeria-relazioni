@@ -1,6 +1,5 @@
 package it.lessons.pizzeria.model;
 
-import java.math.BigDecimal;
 import java.util.List;
 
 import jakarta.persistence.Column;
@@ -37,7 +36,7 @@ public class Pizza {
     @NotNull(message="Inserire una cifra valida")
     @Min(value = 0)
     @Column(nullable = false)
-    private BigDecimal prezzo;
+    private Double prezzo;
 
     private String urlFoto;
 
@@ -96,11 +95,11 @@ public class Pizza {
         this.descrizione = descrizione;
     }
 
-    public BigDecimal getPrezzo() {
+    public Double getPrezzo() {
         return prezzo;
     }
 
-    public void setPrezzo(BigDecimal prezzo) {
+    public void setPrezzo(Double prezzo) {
         this.prezzo = prezzo;
     }
 

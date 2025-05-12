@@ -26,10 +26,10 @@
         <div class="collapse navbar-collapse justify-content-end" id="navbarSupportedContent">
           <ul class="navbar-nav mb-2 mb-lg-0 me-3">
             <li class="nav-item">
-              <a class="btn btn-light" th:href="@{/ingredienti}" th:classAppend="${current == 'ingredienti'} ? active : not-active">Aggiungi Ingredienti</a>
+              <a class="btn btn-light" th:href="@{/ingredienti}" th:classAppend="${current == 'ingredienti'} ? active : not-active" sec:authorize="hasAuthority('ADMIN')">Aggiungi Ingredienti</a>
             </li>
             <li class="nav-item">
-              <a class="btn btn-light" th:href="@{/pizzeria/pizze/create}" th:classAppend="${current == 'create'} ? active : not-active">Aggiungi Pizza</a>
+              <a class="btn btn-light" th:href="@{/pizzeria/pizze/create}" th:classAppend="${current == 'create'} ? active : not-active" sec:authorize="hasAuthority('ADMIN')">Aggiungi Pizza</a>
             </li>
           </ul>
           <form class="d-flex" role="search" th:action="@{/pizzeria/pizze}" method="get">

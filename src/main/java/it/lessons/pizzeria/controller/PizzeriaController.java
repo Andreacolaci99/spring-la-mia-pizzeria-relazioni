@@ -3,6 +3,7 @@ package it.lessons.pizzeria.controller;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -35,7 +36,8 @@ public class PizzeriaController {
     }
 
     @GetMapping("/pizzeria/pizze")
-    public String listaPizze(Model model, @RequestParam(name = "keyword", required = false) String name) {
+    public String listaPizze(Authentication authentication, Model model, @RequestParam(name = "keyword", required = false) String name) {
+        model.addAttribute("username", authentication.getName());
         List<Pizza> listaPizze;
         if (name != null && !name.isBlank()) {
             listaPizze = pizzaRepository.findByNameContainingIgnoreCase(name);
